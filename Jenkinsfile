@@ -8,6 +8,8 @@ pipeline{
           apt upgrade -y
           apt install sudo -y
           apt install docker.io docker-compose -y
+          service docker start
+          service docker status
         '''
       }
     }
