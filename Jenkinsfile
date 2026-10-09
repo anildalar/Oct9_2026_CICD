@@ -10,13 +10,16 @@ pipeline{
           apt install docker.io docker-compose -y
           service docker start
           service docker status
-          
-          withCredentials([usernamePassword(credentialsId: 'docker-hub-repo', passwordVariable: 'PASS', usernameVariable: 'USER')]) {
+        '''
+      }
+    }
+    stage("Image Build and PUsh"){
+      steps{
+         withCredentials([usernamePassword(credentialsId: 'docker-hub-repo', passwordVariable: 'PASS', usernameVariable: 'USER')]) {
               sh 'docker image build -t oklabs/myimage:t${BUILD_NUMBER} -f Dockerfile.myapp .'
               sh "echo $PASS | docker login -u $USER --password-stdin"
               sh 'docker image push oklabs/myimage:t${BUILD_NUMBER}'
           }
-        '''
       }
     }
   }
