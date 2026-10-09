@@ -10,6 +10,7 @@ pipeline{
           apt install docker.io docker-compose -y
           service docker start
           service docker status
+          sudo docker image pull ubuntu/apache2:latest
         '''
       }
     }
